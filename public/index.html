@@ -1,17 +1,47 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
+    <meta name="author" content="Gaston Delimond Dev.">
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+
+    <!-- BEGIN: CSS Assets-->
+    <link rel="stylesheet" href="assets/dist/css/vendors/tippy.css">
+    <link rel="stylesheet" href="assets/dist/css/vendors/simplebar.css">
+    <link rel="stylesheet" href="assets/dist/css/themes/echo.css">
+    <link rel="stylesheet" href="assets/dist/css/app.css">
+    <!-- END: CSS Assets-->
+</head>
+
+<body>
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+    <!-- BEGIN: Vendor JS Assets-->
+    <script type="module" src="assets/dist/js/vendors/dom.js"></script>
+    <script type="module" src="assets/dist/js/vendors/tailwind-merge.js"></script>
+    <script type="module" src="assets/dist/js/vendors/tab.js"></script>
+    <script type="module" src="assets/dist/js/vendors/lucide.js"></script>
+    <script type="module" src="assets/dist/js/vendors/popper.js"></script>
+    <script type="module" src="assets/dist/js/vendors/dropdown.js"></script>
+    <script type="module" src="assets/dist/js/vendors/tippy.js"></script>
+    <script type="module" src="assets/dist/js/vendors/simplebar.js"></script>
+    <script type="module" src="assets/dist/js/vendors/transition.js"></script>
+    <script type="module" src="assets/dist/js/vendors/modal.js"></script>
+    <script type="module" src="assets/dist/js/components/base/theme-color.js"></script>
+    <script type="module" src="assets/dist/js/components/base/lucide.js"></script>
+    <script type="module" src="assets/dist/js/components/base/tippy.js"></script>
+    <script type="module" src="assets/dist/js/themes/echo.js"></script>
+    <script type="module" src="assets/dist/js/components/quick-search.js"></script>
+    <!-- END: Vendor JS Assets-->
+</body>
+
 </html>
