@@ -1,14 +1,12 @@
 import axios from "axios";
 
-const baseURL = "https://backend.hospital.milleniumhorizon.com/api";
+const baseURL = "https://backend.fiscosarlu.com/app";
 
 /**
  * Create a new axios instance
  * */
 const instance = axios.create({
-  baseURL: location.href.includes(".com")
-    ? baseURL
-    : "http://127.0.0.1:8000/api",
+  baseURL: baseURL,
 });
 
 instance.interceptors.request.use((config) => {
