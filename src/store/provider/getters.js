@@ -1,3 +1,3 @@
 export default {
-  GET_PROFIL: (state) => state.profil,
+    GET_PROFIL: (state) => state.profil,
 };

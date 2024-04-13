@@ -4,12 +4,12 @@ export default {
   async viewProfil({ commit }) {
     let candidatDetailsJSON = localStorage.getItem("candidat-detail");
     let profil = JSON.parse(candidatDetailsJSON);
-    let formData = new FormData();
-    formData.append("candidat_id", profil.candidat_id);
-    let { data, status } = await post("/data/viewDetail", formData);
+    let { data, status } = await get(
+      `/candidate.profile/${profil.candidat_id}`
+    );
     if (status === 200) {
-      if (data.reponse.status === "success") {
-        let detail = data.reponse.datasdetail[0];
+      if (data.status === "success") {
+        let detail = data.candidat;
         let formattedInfos = {
           personal: profil,
           detail: detail,

@@ -13,20 +13,36 @@
                                 <li class="breadcrumb-item active">Candidats</li>
                             </ol>
                         </div>
-
                     </div>
                 </div>
             </div>
             <!-- end page title -->
-
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
+
                         <div class="card-body">
-                            <data-table :api-url="`/data/viewProfil`" :columns="dataTableColumns"
-                                :action-buttons="actionButtons" @actionButtonClick="handleActionButtonClick"
-                                :data-src="'reponse.dataprofil'" ref="customTable" />
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-pills nav-customs nav-danger mb-3" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" data-bs-toggle="tab" href="#jobCandidates" role="tab"
+                                        aria-selected="true">Candidats pour l'emploi</a>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <a class="nav-link" data-bs-toggle="tab" href="#formationCandidates" role="tab"
+                                        aria-selected="false" tabindex="-1">Candidats pour la formation</a>
+                                </li>
+                            </ul><!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active show" id="jobCandidates" role="tabpanel">
+                                    <candidates-job-tab />
+                                </div>
+                                <div class="tab-pane" id="formationCandidates" role="tabpanel">
+                                    <candidates-formation-tab />
+                                </div>
+                            </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -44,33 +60,11 @@
 </template>
 
 <script>
-import DataTable from '@/components/public/datatable.vue'
+import candidatesFormationTab from "./tabs/candidates_formation_tab.vue";
+import candidatesJobTab from "./tabs/candidates_job_tab.vue";
 export default {
     name: 'CandidatPage',
-
-    data() {
-        return {
-            dataTableColumns: [
-
-                { data: "nom", title: "NOM" },
-                { data: "postnom", title: "POSTNOM" },
-                { data: "prenom", title: "PRENOM" },
-                /* { data: "domaine", title: "DOMAINE" }, */
-                { data: "email", title: "EMAIL" },
-                /* { data: "diplome", title: "DIPLOME" }, */
-                { data: "telephone", title: "TELEPHONE" },
-            ],
-            actionButtons: [
-                { label: '<i class="ri-eye-2-line me-2"></i> Voir détails', class: 'btn-secondary', key: 'detail' },
-            ],
-            isLoading: false
-        }
-    },
-
-    components: {
-        DataTable,
-    },
-
+    components: { candidatesFormationTab, candidatesJobTab },
     methods: {
 
         handleActionButtonClick(payload) {

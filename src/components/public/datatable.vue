@@ -1,5 +1,6 @@
 <template>
-    <table ref="dataTable" class="table table-bordered dt-responsive nowrap overflow-x-hidden table-striped align-middle"
+    <table ref="dataTable"
+        class="table table-bordered dt-responsive nowrap overflow-x-hidden table-striped align-middle"
         style="width: 100%"></table>
 </template>
 
@@ -53,7 +54,7 @@ export default {
             this.table = $(this.$refs.dataTable).DataTable({
                 autoWidth: true,
                 ajax: {
-                    url: `https://backend.fiscosarlu.com/app${this.apiUrl}`,
+                    url: `http://127.0.0.1:8000/api${this.apiUrl}`,
                     type: "GET",
                     dataType: "json",
                     dataSrc: this.dataSrc,
