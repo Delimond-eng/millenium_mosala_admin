@@ -23,7 +23,7 @@
 
                         <div class="card-body">
                             <!-- Nav tabs -->
-                            <ul class="nav nav-pills nav-customs nav-danger mb-3" role="tablist">
+                            <ul class="nav nav-pills mb-3" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <a class="nav-link active" data-bs-toggle="tab" href="#jobCandidates" role="tab"
                                         aria-selected="true">Candidats pour l'emploi</a>
@@ -62,6 +62,7 @@
 <script>
 import candidatesFormationTab from "./tabs/candidates_formation_tab.vue";
 import candidatesJobTab from "./tabs/candidates_job_tab.vue";
+
 export default {
     name: 'CandidatPage',
     components: { candidatesFormationTab, candidatesJobTab },

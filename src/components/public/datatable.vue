@@ -1,12 +1,12 @@
 <template>
-    <table ref="dataTable"
-        class="table table-bordered dt-responsive nowrap overflow-x-hidden table-striped align-middle"
+    <!--  dt-responsive nowrap overflow-x-hidden -->
+    <table ref="dataTable" class="table table-striped dt-body-nowrap dt-responsive overflow-x-hidden align-middle"
         style="width: 100%"></table>
 </template>
 
 <script>
 export default {
-    name: "DataTableComponent",
+    name: "DataTablesComponent",
     props: {
         apiUrl: {
             type: String,
@@ -28,25 +28,39 @@ export default {
             type: String,
             default: "Actions",
         },
+        showButton: {
+            type: Function,
+            default: () => () => true,
+        },
     },
     data() {
         return {
             table: null,
+            baseURL: 'https://mosala.bakend.milleniumhorizon.com/api'
         };
     },
     methods: {
         initializeDataTable() {
             const columnsWithButtons = [...this.columns];
+            let actionColumnIndex = -1;
+
             if (this.actionButtons.length > 0) {
+                actionColumnIndex = columnsWithButtons.length;
                 columnsWithButtons.push({
                     title: this.actionsHeaderLabel,
                     data: null,
-                    createdCell: (cell, cellData, rowData, rowIndex, colIndex) => {
-                        cell.innerHTML = this.actionButtons
-                            .map((button) => {
-                                return `<button data-id="${rowData.id}" class="btn btn-sm action-btn ${button.class}" data-key="${button.key}" data-bs-toggle="tooltip" title="${button.tooltip}">${button.label}</button>`;
-                            })
-                            .join("");
+                    render: (data, type, row, meta) => {
+                        if (type === "display") {
+                            return this.actionButtons
+                                .map((button) => {
+                                    if (this.showButton(button, row)) {
+                                        return `<button data-id="${row.id}" class="btn btn-sm d-button action-btn ${button.class}" data-key="${button.key}" title="${button.tooltip}">${button.label}</button>`;
+                                    }
+                                    return '';
+                                })
+                                .join("")
+                        }
+                        return data;
                     },
                 });
             }
@@ -54,10 +68,19 @@ export default {
             this.table = $(this.$refs.dataTable).DataTable({
                 autoWidth: true,
                 ajax: {
-                    url: `http://127.0.0.1:8000/api${this.apiUrl}`,
+                    url: `${this.baseURL}${this.apiUrl}`,
                     type: "GET",
                     dataType: "json",
                     dataSrc: this.dataSrc,
+                    cache: false,
+                    beforeSend: (jqXHR) => {
+                        jqXHR.setRequestHeader('Cache-Control', 'no-cache');
+                        jqXHR.setRequestHeader('Pragma', 'no-cache');
+                    },
+                    headers: {
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    },
                 },
                 columns: columnsWithButtons,
                 language: {
@@ -97,30 +120,53 @@ export default {
                 dom: "Bfrtip",
                 buttons: [
                     {
-                        extend: 'copy',
+                        extend: "copy",
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude last column
+                            columns:
+                                actionColumnIndex === -1
+                                    ? ":visible"
+                                    : ":visible:not(:eq(" + actionColumnIndex + "))",
                         },
                     },
                     {
-                        extend: 'csv',
+                        extend: "csv",
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude last column
+                            columns:
+                                actionColumnIndex === -1
+                                    ? ":visible"
+                                    : ":visible:not(:eq(" + actionColumnIndex + "))",
                         },
                     },
                     {
-                        extend: 'excel',
+                        extend: "excel",
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude last column
+                            columns:
+                                actionColumnIndex === -1
+                                    ? ":visible"
+                                    : ":visible:not(:eq(" + actionColumnIndex + "))",
                         },
                     },
                     {
-                        extend: 'print',
+                        extend: "print",
                         exportOptions: {
-                            columns: ':not(:last-child)' // Exclude last column
+                            columns:
+                                actionColumnIndex === -1
+                                    ? ":visible"
+                                    : ":visible:not(:eq(" + actionColumnIndex + "))",
+                        },
+                        customize: function (win) {
+                            $(win.document.body)
+                                .css("font-size", "12pt")
+                                .prepend("<style>table { width: 100% !important; }</style>");
+                            $(win.document.body)
+                                .find("table")
+                                .addClass("display")
+                                .css("font-size", "12pt");
+                            // Ajoutez la classe print-section au body pour l'impression
+                            $(win.document.body).addClass("print-section");
                         },
                     },
-                ]
+                ],
             });
 
             if (this.actionButtons.length > 0) {

@@ -26,7 +26,8 @@ export default {
             actionButtons: [
                 { label: '<i class="ri-eye-2-line me-2"></i> Voir détails', class: 'btn-secondary', key: 'detail' },
             ],
-            isLoading: false
+            isLoading: false,
+            code: ''
         }
     },
 

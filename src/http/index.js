@@ -1,22 +1,22 @@
 import axios from "axios";
 
-const baseURL = "http://127.0.0.1:8000/api";
+const baseURL = "https://mosala.bakend.milleniumhorizon.com/api";
 
 /**
  * Create a new axios instance
  * */
 const instance = axios.create({
-    baseURL: baseURL,
+  baseURL: baseURL,
 });
 
 instance.interceptors.request.use((config) => {
-    //NProgress.start();
-    return config;
+  //NProgress.start();
+  return config;
 });
 
 instance.interceptors.response.use((response) => {
-    //NProgress.done();
-    return response;
+  //NProgress.done();
+  return response;
 });
 
 /***
@@ -29,22 +29,22 @@ instance.interceptors.response.use((response) => {
  */
 
 export async function post(url, form) {
-    let userToken = localStorage.getItem("user-token");
-    let { data, status } = await instance.post(url, form, {
-        headers: {
-            Authorization: userToken,
-        },
-    });
-    return { data, status };
+  let userToken = localStorage.getItem("user-token");
+  let { data, status } = await instance.post(url, form, {
+    headers: {
+      Authorization: userToken,
+    },
+  });
+  return { data, status };
 }
 
 export async function get(url) {
-    let userToken = localStorage.getItem("user-token");
-    let { data, status } = await instance.get(url, {
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: userToken,
-        },
-    });
-    return { data, status };
+  let userToken = localStorage.getItem("user-token");
+  let { data, status } = await instance.get(url, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: userToken,
+    },
+  });
+  return { data, status };
 }
