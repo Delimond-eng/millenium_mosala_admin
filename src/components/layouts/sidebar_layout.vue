@@ -48,6 +48,11 @@
                             <i class="ri-suitcase-line"></i> <span>Entreprises</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#/home/secure/formations">
+                            <i class="ri-book-3-line"></i> <span>Formations</span>
+                        </a>
+                    </li>
 
                     <!-- end Dashboard Menu -->
 

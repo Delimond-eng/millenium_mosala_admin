@@ -2,6 +2,7 @@ import LoginScreen from "@/screens/auth/login_screen.vue";
 import HomeSecure from "@/screens/public/home_secure.vue";
 import DashboardPage from "@/pages/dashboard_page.vue";
 import CandidatsPage from "@/pages/candidats_page.vue";
+import FormationsPage from "@/pages/formations.vue";
 import CandidatDetailPage from "@/pages/candidat_detail.vue";
 
 const routes = [
@@ -25,6 +26,11 @@ const routes = [
         path: "/home/secure/candidats",
         component: CandidatsPage,
         name: "candidats-route",
+      },
+      {
+        path: "/home/secure/formations",
+        component: FormationsPage,
+        name: "formation-route",
       },
       {
         path: "/home/secure/candidat/detail",
